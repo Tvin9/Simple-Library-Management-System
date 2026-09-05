@@ -4,3 +4,10 @@ export class BookBorrowedError extends Error {
         this.name = 'BookBorrowedError';
     }
 }
+
+export class BookNotBorrowedError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'BookNotBorrowedError'
+    }
+}

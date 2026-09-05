@@ -1,4 +1,4 @@
-import { BookBorrowedError } from "./errors";
+import { BookBorrowedError, BookNotBorrowedError } from "./errors";
 
 export class Book {
     constructor(title, author){
@@ -12,5 +12,12 @@ export class Book {
             throw new BookBorrowedError(`${this.title} is not currently available.`)
         }
         this.isBorrowed = true;
+    }
+
+    returnBook(){
+        if(!this.isBorrowed){
+            throw new BookNotBorrowedError(`${this.title} has not been borrowed.`)
+        }
+        this.isBorrowed = false;
     }
 }
