@@ -29,8 +29,14 @@ describe('Book tests', () => {
         book.returnBook()
         expect(book.isBorrowed).toBe(false)
     })
+
     test('throws an error when returning a book that has not been borrowed', () => {
         expect(() => book.returnBook()).toThrow(BookNotBorrowedError)
     })
-    //test('', () => {})
+
+    test('toString() shows the title, author and whether a book is available by Author', () => {
+        expect(book.toString()).toBe('1984 by George Orwell (Available)')
+        book.borrowBook()
+        expect(book.toString()).toBe('1984 by George Orwell (Borrowed)') 
+    })
 })

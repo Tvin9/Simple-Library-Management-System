@@ -20,4 +20,9 @@ export class Book {
         }
         this.isBorrowed = false;
     }
+
+    toString(){
+        const available = this.isBorrowed ? 'Borrowed' : 'Available'
+        return `${this.title} by ${this.author} (${available})`
+    }
 }
