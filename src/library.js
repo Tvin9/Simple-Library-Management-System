@@ -13,4 +13,12 @@ export class Library{
             throw new NotABook('Invalid book input')
         }        
     }
+
+    viewAvailableBooks(){
+        return this.books.filter((book) => !book.isBorrowed)
+    }
+
+    searchBook(title){
+        return this.books.find((book) => book.title === title)
+    }
 }
