@@ -28,7 +28,15 @@ export class Library{
             borrowedBook.borrowBook()
         }else{
             throw new BookNotFoundError('Book not found')
-        }
-        
+        }    
+    }
+
+    returnBook(title){
+        const borrowedBook = this.books.find((book) => book.title === title)
+        if(borrowedBook){
+            borrowedBook.returnBook()
+        }else{
+            throw new BookNotFoundError('Book not found')
+        } 
     }
 }

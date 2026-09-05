@@ -1,6 +1,6 @@
 import {Library} from '../src/library'
 import { Book } from '../src/book';
-import { NotABookError, BookBorrowedError, BookNotFoundError } from '../src/errors';
+import { NotABookError, BookBorrowedError, BookNotFoundError, BookNotBorrowedError } from '../src/errors';
 
 describe('Library Tests', () => {
     let library;
@@ -84,8 +84,26 @@ describe('Library Tests', () => {
         expect(() => library.borrowBook('Snow Crash')).toThrow(BookBorrowedError)
     })
 
-    test('Should throw a seperate Error if the book does not exist', () => {
+    test('Should throw a separate Error if the book does not exist when borrowed', () => {
         expect(() => library.borrowBook('Snow Crash')).toThrow(BookNotFoundError) 
+    })
+
+    test('Should successfully return an existing, unavailable book', () => {
+        const book = new Book('Snow Crash', 'Neal Stephenson')
+        library.addBook(book)
+        book.borrowBook()
+        library.returnBook('Snow Crash')
+        expect(book.isBorrowed).toBe(false)
+    })
+
+    test('Should throw an error if the book exists, and is available', () => {
+        const book = new Book('Snow Crash', 'Neal Stephenson')
+        library.addBook(book)
+        expect(() => library.returnBook('Snow Crash')).toThrow(BookNotBorrowedError)
+    })
+
+    test('Should throw a separate Error if the book does not exist when returned', () => {
+        expect(() => library.returnBook('Snow Crash')).toThrow(BookNotFoundError) 
     })
 
     //test('', () => {})
