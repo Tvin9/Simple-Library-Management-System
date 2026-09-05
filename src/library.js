@@ -1,5 +1,5 @@
 import { Book } from "./book";
-import { NotABook } from "./errors";
+import { NotABookError, BookNotFoundError } from "./errors";
 
 export class Library{
     constructor(){
@@ -10,7 +10,7 @@ export class Library{
         if(book instanceof Book){
             this.books.push(book)
         }else{
-            throw new NotABook('Invalid book input')
+            throw new NotABookError('Invalid book input')
         }        
     }
 
@@ -20,5 +20,15 @@ export class Library{
 
     searchBook(title){
         return this.books.find((book) => book.title === title)
+    }
+
+    borrowBook(title){
+        const borrowedBook = this.books.find((book) => book.title === title)
+        if(borrowedBook){
+            borrowedBook.borrowBook()
+        }else{
+            throw new BookNotFoundError('Book not found')
+        }
+        
     }
 }

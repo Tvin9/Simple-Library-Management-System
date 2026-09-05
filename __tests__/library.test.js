@@ -1,6 +1,6 @@
 import {Library} from '../src/library'
 import { Book } from '../src/book';
-import { NotABook } from '../src/errors';
+import { NotABookError, BookBorrowedError, BookNotFoundError } from '../src/errors';
 
 describe('Library Tests', () => {
     let library;
@@ -23,7 +23,7 @@ describe('Library Tests', () => {
 
     test('Should return an error if the data passed is not a Book', () => {
         
-        expect(()=>{library.addBook('Bad data')}).toThrow(NotABook)
+        expect(()=>{library.addBook('Bad data')}).toThrow(NotABookError)
     })
 
     test('viewAvailableBooks should return a list of currently available books (all available)', () => {
@@ -76,6 +76,19 @@ describe('Library Tests', () => {
         library.borrowBook('Snow Crash')
         expect(book.isBorrowed).toBe(true)
     })
+
+    test('Should throw an error if the book exists, but has been borrowed', () => {
+        const book = new Book('Snow Crash', 'Neal Stephenson')
+        library.addBook(book)
+        book.borrowBook()
+        expect(() => library.borrowBook('Snow Crash')).toThrow(BookBorrowedError)
+    })
+
+    test('Should throw a seperate Error if the book does not exist', () => {
+        expect(() => library.borrowBook('Snow Crash')).toThrow(BookNotFoundError) 
+    })
+
+    //test('', () => {})
 
     //test('', () => {})
 
