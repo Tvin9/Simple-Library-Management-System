@@ -1,4 +1,4 @@
-import { BookBorrowedError, BookNotBorrowedError } from "./errors";
+import { BookBorrowedError, BookNotBorrowedError } from "./errors.js";
 
 export class Book {
     constructor(title, author){

@@ -1,7 +1,7 @@
 import fs from 'fs'
-import { saveLibrary, loadLibrary } from '../src/save_load_manager'
-import { Library } from '../src/library'
-import { Book } from '../src/book'
+import { saveLibrary, loadLibrary } from '../src/save_load_manager.js'
+import { Library } from '../src/library.js'
+import { Book } from '../src/book.js'
 
 const testPath = 'data/test_library.json'
 

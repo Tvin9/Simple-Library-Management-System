@@ -1,6 +1,6 @@
 import fs from 'fs'
-import { Library } from './library'
-import { Book } from './book'
+import { Library } from './library.js'
+import { Book } from './book.js'
 
 export function saveLibrary(path, library){
     const saveData = JSON.stringify(library.books)

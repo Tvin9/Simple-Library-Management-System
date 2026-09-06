@@ -1,5 +1,5 @@
-import {Library} from '../src/library'
-import { Book } from '../src/book';
+import {Library} from '../src/library.js'
+import { Book } from '../src/book.js';
 import { NotABookError, BookBorrowedError, BookNotFoundError, BookNotBorrowedError } from '../src/errors';
 
 describe('Library Tests', () => {

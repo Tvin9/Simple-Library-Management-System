@@ -1,5 +1,5 @@
-import { Book } from "./book";
-import { NotABookError, BookNotFoundError } from "./errors";
+import { Book } from "./book.js";
+import { NotABookError, BookNotFoundError } from "./errors.js";
 
 export class Library{
     constructor(){
