@@ -15,7 +15,7 @@ export class BookNotBorrowedError extends Error {
 export class NotABookError extends Error {
     constructor(message) {
         super(message);
-        this.name = 'NotABook'
+        this.name = 'NotABookError'
     }
 }
 
@@ -23,6 +23,6 @@ export class NotABookError extends Error {
 export class BookNotFoundError extends Error {
     constructor(message) {
         super(message);
-        this.name = 'BookNotFound'
+        this.name = 'BookNotFoundError'
     }
 }

@@ -1,6 +1,6 @@
 import {Library} from '../src/library.js'
 import { Book } from '../src/book.js';
-import { NotABookError, BookBorrowedError, BookNotFoundError, BookNotBorrowedError } from '../src/errors';
+import { NotABookError, BookBorrowedError, BookNotFoundError, BookNotBorrowedError } from '../src/errors.js';
 
 describe('Library Tests', () => {
     let library;
