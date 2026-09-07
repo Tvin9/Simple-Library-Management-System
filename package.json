@@ -4,6 +4,7 @@
   "description": "",
   "main": "node src/main.js",
   "scripts": {
+    "start": "node src/main.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
