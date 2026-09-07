@@ -27,8 +27,7 @@ function menu(){
                         menu()
                     }else{
                         rl.question('\nEnter the author\nType x to return to menu\n', (author)=>{
-                            
-                            if(title.trim().toLowerCase() === 'x'){
+                             if(author.trim().toLowerCase() === 'x'){
                                 menu()
                             }else{
                                 const book = new Book(title, author)
@@ -51,38 +50,50 @@ function menu(){
                 menu()
                 break;
             case '3':
-                rl.question('Enter the title of the book you\'re looking for\n', (title) => {
-                    const searchedBook = library.searchBook(title)
-                    if(searchedBook){
-                        console.log(searchedBook.toString())
+                rl.question('Enter the title of the book you\'re looking for\nType x to return to menu\n', (title) => {
+                    if(title.trim().toLowerCase() === 'x'){
+                        menu()
                     }else{
-                        console.log('That book is not in the library')
-                    }
-                    menu()
+                        const searchedBook = library.searchBook(title)
+                        if(searchedBook){
+                            console.log(searchedBook.toString())
+                        }else{
+                            console.log('That book is not in the library')
+                        }
+                        menu()
+                    }                        
                 })
                 break;
             case '4':
-                rl.question('Enter the title of the book you would like to borrow\n', (title) => {
-                    try{
-                        library.borrowBook(title)
-                        console.log(`You have borrowed ${title}`)
-                        saveLibrary(libraryPath, library)
-                    }catch(err){
-                        console.log(err.message)
+                rl.question('Enter the title of the book you would like to borrow\nType x to return to menu\n', (title) => {
+                    if(title.trim().toLowerCase() === 'x'){
+                        menu()
+                    }else{
+                        try{
+                            library.borrowBook(title)
+                            console.log(`You have borrowed ${title}`)
+                            saveLibrary(libraryPath, library)
+                        }catch(err){
+                            console.log(err.message)
+                        }
+                        menu()
                     }
-                    menu()
                 })
                 break;
             case '5':
-                rl.question('Enter the title of the book you would like to return\n', (title) => {
-                    try{
-                        library.returnBook(title)
-                        console.log(`You have returned ${title}`)
-                        saveLibrary(libraryPath, library)
-                    }catch(err){
-                        console.log(err.message)
+                rl.question('Enter the title of the book you would like to return\nType x to return to menu\n', (title) => {
+                    if(title.trim().toLowerCase() === 'x'){
+                        menu()
+                    }else{
+                        try{
+                            library.returnBook(title)
+                            console.log(`You have returned ${title}`)
+                            saveLibrary(libraryPath, library)
+                        }catch(err){
+                            console.log(err.message)
+                        }
+                        menu()
                     }
-                    menu()
                 })
                 break;
             case '6':
