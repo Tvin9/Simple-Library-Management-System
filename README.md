@@ -45,21 +45,21 @@ data/
 
 ## Design decisions
 
-**Custom error classes.** Rather than having `borrowBook()`/`returnBook()` return `true`/`false` on failure (as suggested by the spec's Java-style signatures), this implementation throws custom error classes.
+**Synchronous vs. Asynchronous.** Since this is a small library running locally, it didn't make sense to go for an async approach, as there will be no calls to a network or a large database to block the code. Should this program be upscaled to use a larger data source, the `save_load_manager.js` would need to be refactored, along with its test suite, to use an async approach. This should not affect the logic in either `library.js`, or `book.js`. 
 
-**`Library` delegates to `Book`, rather than duplicating its logic.** `Library.borrowBook(title)`/`returnBook(title)` find the relevant book and call its own `borrowBook()`/`returnBook()` methods, rather than mutating `isBorrowed` directly.
+**Custom error classes.** Custom error classes are used in the project for clear error identification, which allows for testing against specific error types. 
 
-**Empty results are not errors.** `viewAvailableBooks()` returning an empty array (no books currently available) and `searchBook()` returning `undefined` (no match found) are both treated as valid, expected outcomes rather than exceptions. Only genuine misuse (borrowing an already-borrowed book, searching by a title that doesn't correspond to any book at all during borrow/return) throws an error. This distinction was made deliberately partway through development, after initially over-applying error-throwing to a case (no available books) that didn't actually warrant it.
+**`Book` => `Library` => `main.js` flow of logic.** `Library` uses logic already defined in `Book`, which is eventually brought together by `main.js`. This allows comprehensive testing of each logic level, ensuring stable code.
 
-**Save/Load is not built into `Library`.** `saveLibrary()`/`loadLibrary()` live in `save_load_manager.js`, seperate from `Library`. This keeps `Library` free of any dependency on the file system, this allows changin the save mechanism without affecting the login in library.js, or main.js.
+**Save/Load is not built into `Library`.** `saveLibrary()`/`loadLibrary()` live in `save_load_manager.js`, separate from `Library`. Keeping `Library` free of any dependency on the file system allows for changing the save mechanism without affecting the logic in `library.js` or `main.js`.
 
-**Save-after-every-change persistence.** Rather than saving only when the user exits, the library is saved to disk after every successful add, borrow, or return. While this does increase the nnumber of file writes required, it protects the data in case of a crash.
+**Save after any change to the library by the user.** Rather than saving only when the user exits, the library is saved to disk after every successful add, borrow, or return. While this does increase the number of file writes required, it protects the data in case of a crash. Should the project be expanded to use a larger data source, this approach would have to be reconsidered - either saving on user exit, saving on manual input, or a timed save.
 
-**`main.js` has no dedicated unit tests.** `main.js` uses `readline` to bring together independently tested methods.  Testing main.js would mean eihter simulating a real terminal session (which would test `readline` rather than the project itself), or refactoring its callbacks into separately-testable pure functions. Given the complexity of these options, I opted for manual tests.
+**`main.js` has no dedicated unit tests.** `main.js` uses `readline` to bring together independently tested methods.  Testing `main.js` would mean either simulating a real terminal session (which would test `readline` rather than the project itself), or refactoring its callbacks into separately testable pure functions. Given the complexity of these options, I opted for manual tests. Each option was tested, including error paths (e.g. borrowing an unavailable book, or searching for a non existing title). 
 
 ## Additional features implemented
 
-- **"Go back" option**: any prompt asking for a title or author can be exited by typing `x`, returning the user to the main menu without completing the action.
+- **"Go back" option**: any prompt asking for a title or author can be exited by typing `x`, returning the user to the main menu without completing the action. This unfortunately precludes `x` as either a title or author.
 
 ## Testing
 
