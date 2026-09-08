@@ -1,9 +1,9 @@
 import readline from 'readline'
 import { Library } from './library.js'
 import { Book } from './book.js'
-import { saveLibrary, loadLibrary } from './save_load_manager.js'
+import { saveToLibraryDb, loadFromLibraryDb } from './database_manager.js'
 
-const libraryPath = 'data/library.json'
+const libraryPath = 'data/library.db'
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -13,7 +13,7 @@ const rl = readline.createInterface({
 let library
 
 try{
-    library = loadLibrary(libraryPath)
+    library = loadFromLibraryDb(libraryPath)
 }catch{
     library = new Library()
 }
