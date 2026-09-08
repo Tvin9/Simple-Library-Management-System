@@ -1,5 +1,5 @@
 import {Book} from "../src/book.js"
-import { BookBorrowedError, BookNotBorrowedError } from "../src/errors.js";
+import { BookBorrowedError, BookNotBorrowedError, InvalidDataError } from "../src/errors.js";
 
 describe('Book tests', () => {
     let book;
@@ -40,3 +40,15 @@ describe('Book tests', () => {
         expect(book.toString()).toBe('1984 by George Orwell (Borrowed)') 
     })
 })
+
+describe('Data validation', () => {
+    test('Should throw an error when attempting to create a book from an empty title', () => {
+        expect(() => {new Book('', 'George Orwell')}).toThrow(InvalidDataError)   
+    })
+
+    test('Should throw an error when attempting to create a book from an empty author', () => {
+        expect(() => {new Book('1985', '')}).toThrow(InvalidDataError)   
+    })
+})
+
+ 

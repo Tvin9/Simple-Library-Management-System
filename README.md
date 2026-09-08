@@ -74,7 +74,9 @@ scripts/
 
 **Save manager.** The `save_load_manager.js` is fully tested, but only the `loadLibrary()` logic is used to read the original JSON data before `saveToLibraryDb()` seeds the database where necessary. The `saveLibrary` function is dead code, but preserved to show the evolution of the program.
 
-**No getters/setters** `Book` and `Library` both currently use public properties. State changes are handled through `borrowBook()` and `returnBook()`, each with their own custom errors, ensuring safety. I did consider changing to private fields later in the development of the program, but by the time the code was working throughout, decided that  the risk of introducing new bugs outweighed the benefits of changing.
+**No getters/setters.** `Book` and `Library` both currently use public properties. State changes are handled through `borrowBook()` and `returnBook()`, each with their own custom errors, ensuring safety. I did consider changing to private fields later in the development of the program, but by the time the code was working throughout, decided that  the risk of introducing new bugs outweighed the benefits of changing.
+
+**Book data validation.** `isValidBookData()` was added after manual testing revealed that `Book` would accept an empty string for either the title or the author. `Book` now calls `isValidBookData()` before creating a new instance. `isValidBookData` has been moved to its own file so further logic can be added as needed without interfering with `Book` itself.
 
 ## Additional features implemented
 

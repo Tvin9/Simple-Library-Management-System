@@ -1,7 +1,11 @@
-import { BookBorrowedError, BookNotBorrowedError } from "./errors.js";
+import { BookBorrowedError, BookNotBorrowedError, InvalidDataError } from "./errors.js";
+import { isValidBookData } from "./isValidBookData.js";
 
 export class Book {
     constructor(title, author){
+        if(!isValidBookData(title, author)){
+            throw new InvalidDataError('Title and author cannot be blank')
+        }
         this.title = title;
         this.author = author;
         this.isBorrowed = false;
