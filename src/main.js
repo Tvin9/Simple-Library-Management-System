@@ -32,7 +32,7 @@ function menu(){
                             }else{
                                 const book = new Book(title, author)
                                 library.addBook(book)
-                                saveLibrary(libraryPath, library)
+                                saveToLibraryDb(libraryPath, library)
                                 console.log(`${title} by ${author} has been added to the library.`) 
                                 menu()
                             }
@@ -72,7 +72,7 @@ function menu(){
                         try{
                             library.borrowBook(title)
                             console.log(`You have borrowed ${title}`)
-                            saveLibrary(libraryPath, library)
+                            saveToLibraryDb(libraryPath, library)
                         }catch(err){
                             console.log(err.message)
                         }
@@ -88,7 +88,7 @@ function menu(){
                         try{
                             library.returnBook(title)
                             console.log(`You have returned ${title}`)
-                            saveLibrary(libraryPath, library)
+                            saveToLibraryDb(libraryPath, library)
                         }catch(err){
                             console.log(err.message)
                         }
