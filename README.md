@@ -18,9 +18,9 @@ A console-based Library Management System built in JavaScript (Node.js), allowin
 4. Follow the on-screen menu to add, view, search, borrow, or return books. Any prompt asking for input can be exited by typing `x` to return to the main menu.
 
 To run the test suite:
-```
-npm test
-```
+   ```
+   npm test
+   ```
 
 ## Approach
 
@@ -56,6 +56,10 @@ data/
 **Save after any change to the library by the user.** Rather than saving only when the user exits, the library is saved to disk after every successful add, borrow, or return. While this does increase the number of file writes required, it protects the data in case of a crash. Should the project be expanded to use a larger data source, this approach would have to be reconsidered - either saving on user exit, saving on manual input, or a timed save.
 
 **`main.js` has no dedicated unit tests.** `main.js` uses `readline` to bring together independently tested methods.  Testing `main.js` would mean either simulating a real terminal session (which would test `readline` rather than the project itself), or refactoring its callbacks into separately testable pure functions. Given the complexity of these options, I opted for manual tests. Each option was tested, including error paths (e.g. borrowing an unavailable book, or searching for a non existing title). 
+
+**Use of a console menu.** I did consider using an HTML/CSS user interface, but that would have required building a backend using Express, or similar. Using `readline` fit the brief for a menu-based interface, and browser-based UIs do not work with arbitrary read/write files (`fs`).
+
+**SQLite** PostgreSQL was the first choice, as I have previous experience with it. It is, however, more suited to larger projects with persistent online databases rather than a "portable file-based database". SQLite stores the database as a single file, making it much more suitable for a small build with local storage.
 
 ## Additional features implemented
 
