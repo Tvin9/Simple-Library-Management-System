@@ -57,13 +57,13 @@ scripts/
 
 ## Design decisions
 
-**Synchronous vs. asynchronous.** Since this is a small library running locally, it didn't make sense to go for an async approach, as there will be no calls to a network or a large database to block the code. Should this program be upscaled to use a larger data source, the `save_load_manager.js` would need to be refactored, along with its test suite, to use an async approach. This should not affect the logic in either `library.js`, or `book.js`. 
+**Synchronous vs. asynchronous.** Since this is a small library running locally, it didn't make sense to go for an async approach, as there will be no calls to a network or a large database to block the code. Should this program be upscaled to use a larger data source, `data_manager.js` would need to be refactored, along with its test suite, to use an async approach. This should not affect the logic in either `library.js`, or `book.js`. 
 
 **Custom error classes.** Custom error classes are used in the project for clear error identification, which allows for testing against specific error types. 
 
 **`Book` => `Library` => `main.js` flow of logic.** `Library` uses logic already defined in `Book`, which is eventually brought together by `main.js`. This allows comprehensive testing of each logic level, ensuring stable code.
 
-**Save/Load is not built into `Library`.** `saveLibrary()`/`loadLibrary()` live in `save_load_manager.js`, separate from `Library`. Keeping `Library` free of any dependency on the file system allows for changing the save mechanism without affecting the logic in `library.js` or `main.js`. -- This enabled the final switch from a JSON save/load mechanism to a SQLite mechanism.
+**Save/Load is not built into `Library`.** `saveLibrary()`/`loadLibrary()` live in `save_load_manager.js` (now `saveToLibraryDb`, `LoadFromLirbraryDb`, and `database_manager.js`), separate from `Library`. Keeping `Library` free of any dependency on the file system allows for changing the save mechanism without affecting the logic in `library.js` or `main.js`. -- This enabled the final switch from a JSON save/load mechanism to a SQLite mechanism.
 
 **Save after any change to the library by the user.** Rather than saving only when the user exits, the library is saved to disk after every successful add, borrow, or return. While this does increase the number of file writes required, it protects the data in case of a crash. Should the project be expanded to use a larger data source, this approach would have to be reconsidered - either saving on user exit, saving on manual input, or a timed save.
 
