@@ -42,6 +42,7 @@ src/
   save_load_manager.js  - Persistence (save/load to JSON - superseded by SQLite - see Design decisions)
   database_manager.js   - SQLite persistence
   main.js               - Console menu interface
+  isValidBookData.js    - Validation tool to prevent empty strings being passed into `Book` 
 __tests__/
   book.test.js
   library.test.js
